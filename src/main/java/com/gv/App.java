@@ -1,10 +1,11 @@
 package com.gv;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class App {
 
-      public static void main(String[] args){
+      public static void main(String[] args) throws UnsupportedEncodingException{
             Scanner sc = new Scanner(System.in);
             String cep;
 
@@ -15,13 +16,38 @@ public class App {
             System.out.println("CEP: ");
             cep = sc.nextLine();
             
-            if (cep.length() != 0){
+            if (!cep.isBlank()){
+                  String consulta, resposta;
                   MontaPesquisa pesquisa = new MontaPesquisa();
                   pesquisa.setCep(cep);
-                  ConsultaCep consulta = pesquisa.consultaCEP();
+                  consulta = pesquisa.consultaCEP();
+
+                  resposta = cc.submeteConsultaCEP(consulta);
+
+                  System.out.println(resposta);
             }
+            else {
+                  String estado, cidade, logradouro, consulta, resposta;
+
+                  System.out.println("Insira o Estado: ");
+                  estado = sc.nextLine();
+                  System.out.println("Insira a Cidade: ");
+                  cidade = sc.nextLine();
+                  System.out.println("Insira o Logradouro: ");
+                  logradouro = sc.nextLine();
+                  MontaPesquisa pesquisa = new MontaPesquisa();
+                  pesquisa.setEstado(estado);
+                  pesquisa.setCidade(cidade);
+                  pesquisa.setLogradouro(logradouro);
+                  consulta = pesquisa.consultaPorLogradouro();
+
+                  resposta = cc.submeteConsultaLogradouro(consulta);
+
+                  System.out.println(resposta);
+            }
+
+            sc.close();
+
       }
       
-
-
 }

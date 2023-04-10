@@ -37,7 +37,7 @@ public class ConsultaCep {
     }
 
     public String mandaConsultaCEP(String urlCEP) throws UnsupportedEncodingException{
-        String url = ConsultaCep.constroiConsulta(urlCEP);
+        String url = ConsultaCep.constroiConsulta(urlCEP); //Cria link completo para consulta
 
         System.out.println("URL CEP: " + url);
         

@@ -48,7 +48,7 @@ public class ConsultaCep {
             
             httpRequest = HttpRequest.newBuilder()
                           .GET()
-                          .uri(URI.create(urlCEP))
+                          .uri(URI.create(url))
                           .build();
 
             httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());

@@ -6,6 +6,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class ConsultaCep {
@@ -52,8 +58,10 @@ public class ConsultaCep {
                           .build();
 
             httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            
-            return httpResponse.body();
+            Gson gson = new Gson();
+            CEP endereco = gson.fromJson(httpResponse.body(), CEP.class);
+
+            return endereco.toString();
         }
 
         catch (IOException e) {
@@ -84,8 +92,12 @@ public class ConsultaCep {
                           .build();
 
             httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            Gson gson = new Gson();
+            TypeToken<Collection<CEP>> collectionType = new TypeToken<Collection<CEP>>(){};
+            Collection<CEP> enderecos = gson.fromJson(httpResponse.body(), collectionType);
+            // CEP endereco = gson.fromJson(httpResponse.body(), CEP.class);
             
-            return httpResponse.body();
+            return enderecos.toString();
         }
 
         catch (IOException e) {
